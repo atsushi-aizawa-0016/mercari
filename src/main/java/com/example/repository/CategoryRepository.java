@@ -73,4 +73,26 @@ public class CategoryRepository {
 		List<Category> childList = template.query(sql, param, CATEGORY_ROW_MAPPER);
 		return childList;
 	}
+	
+	public List<Category> findByGrandChildName(String name) {
+		String sql = "SELECT id,name,parent_id,name_all split_part" + 
+				" FROM category" + 
+				" WHERE SPLIT_PART(name_all,'/',2) = :name"; 
+		SqlParameterSource param = new MapSqlParameterSource().addValue("name", name);
+		List<Category> grandChildList = template.query(sql, param, CATEGORY_ROW_MAPPER);
+//		System.out.println("grandChildListのなかみ：" + grandChildList);
+		return grandChildList;
+	}
+	public Category findByCategoryId(Integer categoryId) {
+		//			System.out.println("categoryIdなにい？？：" + categoryId);
+		String sql = "SELECT \n" + 
+				"id,name,parent_id,name_all split_part \n" + 
+				"from \n" + 
+				"category \n" + 
+				"WHERE id = :categoryId\n" + 
+				";";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("categoryId", categoryId);
+		Category categoryInfo = template.queryForObject(sql, param, CATEGORY_ROW_MAPPER);
+		return categoryInfo;
+	}
 }

@@ -58,6 +58,7 @@
           <!-- <select class="form-control">
             <option th:each="parent:${parentList}" th:text="${parent.name}">- parentCategory -</option> -->
           <select class="form-control" id="parentCategoryPulldown">
+          	<option></option>
             <option th:each="parentCategory:${parentCategories}" th:text="${parentCategory.name}" th:value="${parentCategory.id}">---dummy---</option>
            	<!-- <option>parentCategory1</option>
             <option>parentCategory2</option>
@@ -68,16 +69,16 @@
 		  
           <!-- <select class="form-control">
             <option th:each="child:${childList}" th:text="${child.nameAll}">- childCategory -</option> -->
-          <select class="form-control" id="parentChildPulldown">
-           <!--  <option th:each="child:${childList}" th:text="${child.name}">- childCategory -</option> -->
+          <select class="form-control" id="childCategoryPulldown">
+           <!-- <option th:each="child:${childList}" th:text="${child.name}">- childCategory -</option> -->
             <!-- <option>childCategory1</option>
             <option>childCategory2</option>
             <option>childCategory3</option>
             <option>childCategory4</option>
             <option>childCategory5</option> -->
           </select>
-          <select class="form-control">
-            <option th:each="grandChild:${grandChildList}" th:text="${grandChild.nameAll}">- grandChild -</option>
+          <select class="form-control" id="grandChildCategoryPulldown">
+            <!-- <option th:each="grandChild:${grandChildList}" th:text="${grandChild.nameAll}">- grandChild -</option> -->
             <!-- <option>grandChild1</option>
             <option>grandChild2</option>
             <option>grandChild3</option>
@@ -128,7 +129,17 @@
           <tr th:each="item:${itemList}">
             <td class="item-name" th:text="${item.name}"><a href="./detail.html">Razer BlackWidow Chroma Keyboard</a></td>
             <td class="item-price" th:text="${item.price}">52.0</td>
-            <td class="item-category" th:text="${item.nameAll}"><a href="">Electronics</a> / <a href="">Computers &amp; Tablets</a> / <a href="">Components &amp; Parts</a></td>
+            <!-- <td class="item-category" th:text="${item.nameAll}"><a href="">Electronics</a> / <a href="">Computers &amp; Tablets</a> / <a href="">Components &amp; Parts</a></td> -->
+            <td class="item-category">
+            	<span th:unless="${item.nameAll == null}">
+            	<span th:each="category:${#strings.arraySplit(item.nameAll,'/')}">
+            		<!-- <a th:href="@{'/item/selectPage?categor,?categoyrIdy=' + ${category},${item.categoryId}}"> -->
+            		<a th:href="@{/item/selectPage(category=${category},categoryId=${item.categoryId})}">
+            			<span th:text="${category}"></span>/
+            		</a>
+            	</span>
+            	</span>
+            </td>
             <td class="item-brand" th:text="${item.brandName}"><a href="">Razer</a></td>
             <td class="item-condition" th:text="${item.itemConditionId}">3</td>
           </tr>

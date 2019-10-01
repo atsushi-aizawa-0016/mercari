@@ -32,4 +32,23 @@ public class ItemService {
 	public List<Item> findList(Integer pageNum){
 		return itemRepository.findList(pageNum);
 	}
+	
+	public List<Item> findByParentCategory(String category,Integer pageNum){
+		String parentName = category;
+		return itemRepository.findByParentCategory(parentName,pageNum);
+	}
+	public List<Item> findByParentChildCategory(String parentChildCategory,Integer pageNum){
+//		System.out.println("parentChildCategory;のなかみ：" + parentChildCategory);
+		String parentName = parentChildCategory;
+		return itemRepository.findByParentChildCategory(parentName,pageNum);
+	}
+	public List<Item> findByParentChildGrandChilCategory(String paraChilGraChilCategory,Integer pageNum){
+//		System.out.println("parentChildCategory;のなかみ：" + paraChilGraChilCategory);
+		String parentName = paraChilGraChilCategory;
+		return itemRepository.findByParentChildCategory(parentName,pageNum);
+	}
+	
+//	public List<Item> findByCategoryId(Integer categoryId) {
+//		return itemRepository.findByCategoryId(categoryId);
+//	}
 }

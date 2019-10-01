@@ -34,8 +34,7 @@ public class CategoryService {
 		StringBuilder s = new StringBuilder();
 		s.append("[");
 		
-		System.out.println("getPulldownDateメソッドを開始した直後の変数sbの中身：" + s);
-		System.out.println("nameの値：" + id);
+//		System.out.println("idの値：" + id);
 		Integer parentId = Integer.parseInt(id);
 		
 		List<Category> childList = categoryRepository.findByChildName(parentId);
@@ -59,8 +58,44 @@ public class CategoryService {
 		s.deleteCharAt(s.lastIndexOf(","));
 		s.append("]");
 		
-		System.out.println("getPulldownDateメソッド終了直前の変数sbの中身：" + s.toString());
+//		System.out.println("getPulldownDateメソッド終了直前の変数sbの中身：" + s.toString());
 		
 		return s.toString();
+	}
+	public String getPulldownData2(String id) {
+		StringBuilder s = new StringBuilder();
+		s.append("[");
+		
+		String name = id;
+//		System.out.println("nameの値：" + name);
+		
+		List<Category> grandChildList = categoryRepository.findByGrandChildName(name);
+		
+		for (Category category : grandChildList) {
+			s.append("{\"");
+	        s.append("value");
+	        s.append("\"");
+	        s.append(":\"");
+	        s.append(category.getName());
+	        s.append("\",");
+	        s.append("\"");
+	        s.append("label");
+	        s.append("\"");
+	        s.append(":\"");
+	        s.append(category.getName());
+	        s.append("\"}");
+	        s.append(",");
+		}
+		
+		s.deleteCharAt(s.lastIndexOf(","));
+		s.append("]");
+		
+//		System.out.println("getPulldownDateメソッド終了直前の変数sbの中身：" + s.toString());
+		
+		return s.toString();
+	}
+	
+	public Category findByCategoryId(Integer categoryId) {
+		return categoryRepository.findByCategoryId(categoryId);
 	}
 }

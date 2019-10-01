@@ -27,16 +27,28 @@ public class Item {
 	private String itemDescription;
 	/** カテゴリー情報 */
 	private String nameAll;
+	private Integer parentId;
 	private Integer pageNum;
 	
 
 	
 	
+	
+
 	@Override
 	public String toString() {
 		return "Item [id=" + id + ", name=" + name + ", itemConditionId=" + itemConditionId + ", categoryId="
 				+ categoryId + ", brandName=" + brandName + ", price=" + price + ", shipping=" + shipping
-				+ ", itemDescription=" + itemDescription + ", nameAll=" + nameAll + ", pageNum=" + pageNum + "]";
+				+ ", itemDescription=" + itemDescription + ", nameAll=" + nameAll + ", parentId=" + parentId
+				+ ", pageNum=" + pageNum + "]";
+	}
+
+	public Integer getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
 	}
 
 	public Integer getPageNum() {

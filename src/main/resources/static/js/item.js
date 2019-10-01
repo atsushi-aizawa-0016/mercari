@@ -1,15 +1,21 @@
 $(function(){
     $("#parentCategoryPulldown").change(function(){
-    	alert("こんにちは");
         var value = $("#parentCategoryPulldown option:selected").val();
-        alert(value);
         $.get("parentCategory/" + value ,function(data){
-        	alert(data);
             var obj = $.parseJSON(data);
-            alert(obj);
-            $("#parentChildPulldown").html("");
+            $("#childCategoryPulldown").html("");
             for(var i=0;i<obj.length;i++){
-                $("#parentChildPulldown").append("<option value="+obj[i].value+">"+obj[i].label+"</option>");
+                $("#childCategoryPulldown").append("<option value='"+obj[i].value+"'>"+obj[i].label+"</option>");
+            }
+        })
+    })
+    $("#childCategoryPulldown").change(function(){
+        var value = $("#childCategoryPulldown option:selected").val();
+        $.get("childCategory/" + value ,function(data){
+            var obj = $.parseJSON(data);
+            $("#grandChildCategoryPulldown").html("");
+            for(var i=0;i<obj.length;i++){
+                $("#grandChildCategoryPulldown").append("<option value="+obj[i].value+">"+obj[i].label+"</option>");
             }
         })
     })
